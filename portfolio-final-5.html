@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Aaryav Jaiswal — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F5F2EC;--surface:#FFFDF8;--ink:#1A1612;--ink-muted:#6B6460;
+  --accent:#C9440A;--accent-light:#F5E8E0;--accent-mid:#E8693A;
+  --border:rgba(26,22,18,0.11);--border-strong:rgba(26,22,18,0.22);
+  --serif:'DM Serif Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;
+  --ease:cubic-bezier(0.22,1,0.36,1);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);font-size:16px;line-height:1.6;overflow-x:hidden;cursor:none}
+
+/* CURSOR */
+#cur{position:fixed;width:10px;height:10px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s var(--ease),height .25s var(--ease)}
+#cur-ring{position:fixed;width:36px;height:36px;border:1.5px solid rgba(201,68,10,.35);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s var(--ease),height .3s var(--ease),border-color .2s}
+body:has(a:hover) #cur,body:has(button:hover) #cur{width:5px;height:5px}
+body:has(a:hover) #cur-ring,body:has(button:hover) #cur-ring{width:54px;height:54px;border-color:rgba(201,68,10,.55)}
+a,button{cursor:none}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.rl{opacity:0;transform:translateX(-26px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.rr{opacity:0;transform:translateX(26px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.on{opacity:1!important;transform:none!important}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.1rem 3.5rem;background:rgba(245,242,236,0);backdrop-filter:blur(0);border-bottom:1px solid transparent;transition:background .4s,backdrop-filter .4s,border-color .4s,padding .3s}
+nav.sc{background:rgba(245,242,236,.92);backdrop-filter:blur(18px);border-bottom-color:var(--border);padding:.75rem 3.5rem}
+.nav-logo{font-family:var(--serif);font-size:1.15rem;color:var(--ink);text-decoration:none}
+.nav-links{display:flex;gap:2.2rem;list-style:none}
+.nav-links a{font-size:.78rem;font-weight:500;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-muted);text-decoration:none;position:relative;padding-bottom:2px;transition:color .2s}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1.5px;background:var(--accent);transition:width .3s var(--ease)}
+.nav-links a:hover,a.act{color:var(--accent)}
+.nav-links a:hover::after,.act::after{width:100%}
+
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:72px;position:relative;overflow:hidden}
+.hero-vline{position:absolute;top:0;bottom:0;left:50%;width:1px;background:linear-gradient(to bottom,transparent,var(--border) 20%,var(--border) 80%,transparent)}
+.hero-l{display:flex;flex-direction:column;justify-content:center;padding:5rem 4rem 5rem 5.5rem;position:relative;z-index:1}
+.hero-eyebrow{display:flex;align-items:center;gap:.65rem;font-size:.78rem;font-weight:500;text-transform:uppercase;letter-spacing:.13em;color:var(--accent);margin-bottom:1.75rem;animation:fu .7s var(--ease) both}
+.eline{width:28px;height:1.5px;background:var(--accent);flex-shrink:0}
+.hero-name{font-family:var(--serif);font-size:clamp(3.2rem,5.5vw,5.5rem);line-height:1.04;color:var(--ink);margin-bottom:1.75rem;animation:fu .7s .1s var(--ease) both}
+.hero-name em{color:var(--accent)}
+.hero-tagline{font-size:1.05rem;color:var(--ink-muted);font-weight:300;max-width:400px;margin-bottom:2.75rem;line-height:1.8;animation:fu .7s .2s var(--ease) both}
+.ctas{display:flex;gap:1rem;flex-wrap:wrap;animation:fu .7s .3s var(--ease) both}
+.btn-p{padding:.8rem 1.9rem;background:var(--accent);color:#fff;border:none;border-radius:4px;font-family:var(--sans);font-size:.88rem;font-weight:500;cursor:none;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;transition:background .25s,transform .15s}
+.btn-p:hover{background:#a83508;transform:translateY(-2px)}
+.btn-o{padding:.8rem 1.9rem;background:transparent;color:var(--ink);border:1.5px solid var(--border-strong);border-radius:4px;font-family:var(--sans);font-size:.88rem;font-weight:500;cursor:none;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;transition:border-color .25s,color .25s,transform .15s}
+.btn-o:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+.scroll-hint{position:absolute;bottom:2.5rem;left:5.5rem;display:flex;align-items:center;gap:.75rem;font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-muted);animation:fu 1s .8s var(--ease) both}
+.sline{width:36px;height:1px;background:var(--border-strong);position:relative;overflow:hidden}
+.sline::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:var(--accent);animation:slide 1.8s 1s ease-in-out infinite}
+@keyframes slide{0%{left:-100%}50%{left:0}100%{left:100%}}
+.hero-r{background:var(--surface);border-left:1px solid var(--border);display:flex;align-items:center;justify-content:center;padding:5rem 3.5rem;position:relative;overflow:hidden}
+.photo-wrap{position:relative;width:270px;height:330px;animation:fu .8s .4s var(--ease) both}
+.photo-frame{width:100%;height:100%;border-radius:10px;background:var(--accent-light);border:2px dashed rgba(201,68,10,.22);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.75rem;color:var(--accent);font-size:.82rem;text-align:center;padding:2rem;position:relative}
+.photo-frame::before{content:'';position:absolute;inset:-8px;border:1px solid rgba(201,68,10,.1);border-radius:14px;z-index:-1}
+.stat-chips{display:contents}
+.chip{position:absolute;background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:.5rem .9rem;font-size:.76rem;font-weight:500;color:var(--ink-muted);white-space:nowrap;box-shadow:0 4px 16px rgba(26,22,18,.08);transition:border-color .2s,transform .2s;animation:fu .7s var(--ease) both}
+.chip:hover{border-color:var(--accent)}
+.chip:nth-child(1){top:-16px;right:-24px;animation-delay:.6s}
+.chip:nth-child(2){bottom:60px;right:-32px;animation-delay:.75s}
+.chip:nth-child(3){bottom:-16px;left:-24px;animation-delay:.9s}
+.chip strong{color:var(--accent);font-family:var(--serif);font-size:1.1rem;margin-right:.35rem}
+
+/* SECTIONS */
+section{padding:7rem 5.5rem;position:relative}
+section:nth-child(even){background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.sec-head{margin-bottom:3.5rem}
+.sec-label{display:inline-flex;align-items:center;gap:.5rem;font-size:.73rem;font-weight:500;text-transform:uppercase;letter-spacing:.14em;color:var(--accent);margin-bottom:.6rem}
+.sec-label::before{content:'';width:16px;height:1.5px;background:var(--accent)}
+.sec-title{font-family:var(--serif);font-size:clamp(2.2rem,3.5vw,3.2rem);line-height:1.08;color:var(--ink);margin-bottom:1rem}
+.sec-title em{color:var(--accent)}
+.sec-sub{color:var(--ink-muted);font-weight:300;max-width:520px;line-height:1.85;font-size:1.02rem}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:5.5rem;align-items:start}
+.about-text p{color:var(--ink-muted);line-height:1.9;margin-bottom:1.3rem;font-weight:300;font-size:1.02rem}
+.about-text p:last-child{margin-bottom:0}
+.detail-row{display:flex;gap:1rem;align-items:flex-start;padding:1.25rem 0;border-bottom:1px solid var(--border);transition:transform .2s}
+.detail-row:first-child{border-top:1px solid var(--border)}
+.detail-row:hover{transform:translateX(4px)}
+.d-icon{width:38px;height:38px;flex-shrink:0;background:var(--accent-light);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+.d-label{font-size:.72rem;text-transform:uppercase;letter-spacing:.09em;color:var(--ink-muted);margin-bottom:.25rem}
+.d-value{font-weight:500;font-size:.95rem;line-height:1.4}
+
+/* SKILLS */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.5rem}
+.skill-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:1.6rem;transition:border-color .25s,transform .25s,box-shadow .25s;position:relative;overflow:hidden}
+.skill-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--accent-light) 0%,transparent 60%);opacity:0;transition:opacity .3s}
+.skill-card:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:0 12px 30px rgba(201,68,10,.1)}
+.skill-card:hover::before{opacity:1}
+.sk-cat{font-size:.68rem;text-transform:uppercase;letter-spacing:.11em;color:var(--accent);margin-bottom:.8rem;font-weight:500}
+.sk-name{font-family:var(--serif);font-size:1.3rem;margin-bottom:.5rem;position:relative;z-index:1}
+.sk-desc{font-size:.84rem;color:var(--ink-muted);line-height:1.65;position:relative;z-index:1}
+.sk-bar{margin-top:1.1rem;height:3px;background:var(--border);border-radius:2px;overflow:hidden}
+.sk-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-mid));border-radius:2px;width:0;transition:width 1.2s var(--ease)}
+.skill-card.bar-on .sk-fill{width:var(--lv)}
+
+/* PROJECTS */
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:2rem}
+.proj-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:transform .3s var(--ease),box-shadow .3s;display:flex;flex-direction:column}
+.proj-card:hover{transform:translateY(-6px);box-shadow:0 20px 48px rgba(26,22,18,.1)}
+.proj-thumb{height:190px;background:var(--accent-light);display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:.8rem;font-style:italic;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.proj-thumb-label{position:absolute;bottom:.75rem;left:.75rem;background:rgba(245,242,236,.9);border:1px solid var(--border);font-size:.7rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:.25rem .6rem;border-radius:3px;color:var(--ink-muted);font-style:normal}
+.proj-body{padding:1.6rem;display:flex;flex-direction:column;flex:1}
+.tags{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.85rem}
+.tag{font-size:.68rem;font-weight:500;text-transform:uppercase;letter-spacing:.07em;background:var(--accent-light);color:var(--accent);padding:.28rem .65rem;border-radius:3px}
+.proj-title{font-family:var(--serif);font-size:1.35rem;margin-bottom:.6rem;line-height:1.2}
+.proj-desc{font-size:.88rem;color:var(--ink-muted);line-height:1.75;margin-bottom:1.4rem;flex:1}
+.proj-foot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:1rem;border-top:1px solid var(--border)}
+.proj-link{font-size:.78rem;font-weight:500;text-transform:uppercase;letter-spacing:.09em;color:var(--accent);text-decoration:none;display:inline-flex;align-items:center;gap:.4rem;transition:gap .2s}
+.proj-link:hover{gap:.7rem}
+.proj-link::after{content:'→'}
+.proj-meta{font-size:.75rem;color:var(--ink-muted)}
+
+/* ACHIEVEMENTS */
+.ach-filters{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:3.5rem}
+.af{padding:.45rem 1.1rem;border-radius:100px;border:1.5px solid var(--border);background:transparent;font-family:var(--sans);font-size:.78rem;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-muted);cursor:none;transition:border-color .2s,background .2s,color .2s}
+.af:hover{border-color:var(--accent);color:var(--accent)}
+.af.active{border-color:var(--accent);background:var(--accent);color:#fff}
+.ach-feat{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:3rem;transition:box-shadow .3s}
+.ach-feat:hover{box-shadow:0 16px 40px rgba(201,68,10,.12)}
+.af-left{padding:2.5rem 3rem;background:var(--accent);color:#fff;display:flex;flex-direction:column;justify-content:center}
+.af-badge{font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;opacity:.75;margin-bottom:.75rem}
+.af-title{font-family:var(--serif);font-size:1.9rem;line-height:1.15;margin-bottom:.75rem}
+.af-org{font-size:.88rem;opacity:.82;font-weight:300;line-height:1.6}
+.af-right{padding:2.5rem 3rem;background:var(--accent-light);display:flex;flex-direction:column;justify-content:center;gap:1.25rem}
+.af-meta{display:flex;gap:1.5rem;flex-wrap:wrap}
+.af-meta-item{display:flex;flex-direction:column;gap:.3rem}
+.af-ml{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-muted)}
+.af-mv{font-weight:500;font-size:.95rem;color:var(--ink)}
+.af-desc{font-size:.9rem;color:var(--ink-muted);line-height:1.75;font-weight:300}
+.timeline{position:relative;padding-left:2.5rem}
+.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1.5px;background:linear-gradient(to bottom,var(--accent),var(--border) 70%,transparent)}
+.ach-group{margin-bottom:3rem}
+.ach-yr{position:relative;display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem}
+.ach-yr::before{content:'';position:absolute;left:-2.5rem;width:10px;height:10px;background:var(--accent);border-radius:50%;box-shadow:0 0 0 4px var(--bg),0 0 0 6px rgba(201,68,10,.2)}
+.ach-yr-label{font-family:var(--serif);font-size:1.6rem;color:var(--ink)}
+.ach-yr-count{font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-muted)}
+.ach-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem}
+.ach-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.4rem 1.6rem;transition:border-color .25s,transform .25s;position:relative;overflow:hidden}
+.ach-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.ach-card[data-lv="international"]::before{background:linear-gradient(90deg,#C9440A,#E8693A)}
+.ach-card[data-lv="national"]::before{background:linear-gradient(90deg,#4A7C59,#77AB88)}
+.ach-card[data-lv="state"]::before{background:linear-gradient(90deg,#1D5F8C,#4B93C0)}
+.ach-card[data-lv="school"]::before{background:linear-gradient(90deg,#7B6FAD,#A99ECF)}
+.ach-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.ach-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.6rem;gap:1rem}
+.ach-ttl{font-weight:500;font-size:.97rem;line-height:1.35;flex:1}
+.bdg{flex-shrink:0;font-size:.65rem;font-weight:500;text-transform:uppercase;letter-spacing:.07em;padding:.25rem .65rem;border-radius:3px;border:1px solid;line-height:1.4}
+.bdg.international{background:rgba(201,68,10,.1);color:#A03208;border-color:rgba(201,68,10,.25)}
+.bdg.national{background:rgba(74,124,89,.1);color:#2E6040;border-color:rgba(74,124,89,.25)}
+.bdg.state{background:rgba(29,95,140,.1);color:#1A5078;border-color:rgba(29,95,140,.25)}
+.bdg.school{background:rgba(123,111,173,.1);color:#4E4380;border-color:rgba(123,111,173,.25)}
+.ach-org{font-size:.82rem;color:var(--ink-muted);margin-bottom:.8rem;font-weight:300}
+.ach-desc{font-size:.82rem;color:var(--ink-muted);line-height:1.65}
+.ach-foot{display:flex;align-items:center;gap:.75rem;margin-top:1rem;padding-top:.9rem;border-top:1px solid var(--border)}
+.ach-cat{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-muted);background:var(--bg);padding:.2rem .55rem;border-radius:3px;border:1px solid var(--border)}
+.extras-head{margin-top:4.5rem;margin-bottom:1.75rem}
+.extras-head h3{font-family:var(--serif);font-size:1.8rem;margin-bottom:.5rem}
+.extras-head h3 em{color:var(--accent)}
+.extras-head p{color:var(--ink-muted);font-weight:300;font-size:.95rem;max-width:480px}
+.extras-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:1rem}
+.extra{display:flex;flex-direction:column;gap:.3rem;padding:1.1rem 1.3rem;background:var(--bg);border:1px solid var(--border);border-radius:9px;transition:border-color .2s,transform .2s}
+.extra:hover{border-color:var(--accent);transform:translateY(-2px)}
+.extra-icon{font-size:1.4rem;margin-bottom:.2rem}
+.extra-name{font-weight:500;font-size:.9rem}
+.extra-role{font-size:.78rem;color:var(--ink-muted)}
+
+/* CONTACT */
+.contact-wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:5rem;align-items:center}
+.contact-text h3{font-family:var(--serif);font-size:1.8rem;margin-bottom:1rem;line-height:1.2}
+.contact-text h3 em{color:var(--accent)}
+.contact-text p{color:var(--ink-muted);font-weight:300;line-height:1.85;max-width:380px}
+.clinks{display:flex;flex-direction:column;gap:.9rem}
+.clink{display:flex;align-items:center;gap:1.1rem;padding:1rem 1.3rem;background:var(--bg);border:1px solid var(--border);border-radius:8px;text-decoration:none;color:var(--ink);transition:border-color .25s,transform .2s;position:relative;overflow:hidden}
+.clink::after{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);transform:scaleY(0);transition:transform .25s var(--ease);transform-origin:bottom}
+.clink:hover{border-color:var(--accent);transform:translateX(4px)}
+.clink:hover::after{transform:scaleY(1)}
+.clink-icon{width:38px;height:38px;border-radius:8px;background:var(--accent-light);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.clink-lbl{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-muted)}
+.clink-val{font-weight:500;font-size:.93rem}
+
+/* FOOTER */
+footer{padding:2.5rem 5.5rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:.79rem;color:var(--ink-muted)}
+.footer-r{display:flex;align-items:center;gap:.5rem}
+.fdot{width:5px;height:5px;background:var(--accent);border-radius:50%;display:inline-block}
+
+@keyframes fu{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes fr{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:none}}
+
+@media(max-width:960px){
+  nav,nav.sc{padding:1rem 1.75rem}
+  .hero{grid-template-columns:1fr;grid-template-rows:auto auto}
+  .hero-l{padding:4rem 1.75rem 2.5rem}
+  .hero-r{border-left:none;border-top:1px solid var(--border);padding:3rem 1.75rem 3.5rem;min-height:380px}
+  .scroll-hint{left:1.75rem;bottom:1.5rem}
+  section{padding:5rem 1.75rem}
+  .about-grid,.contact-wrap{grid-template-columns:1fr;gap:3rem}
+  .ach-feat{grid-template-columns:1fr}
+  footer{flex-direction:column;gap:.5rem;text-align:center;padding:1.5rem 1.75rem}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<nav id="nav">
+  <a href="#home" class="nav-logo">Aaryav Jaiswal</a>
+  <ul class="nav-links">
+    <li><a href="#about" id="na-about">About</a></li>
+    <li><a href="#skills" id="na-skills">Skills</a></li>
+    <li><a href="#projects" id="na-projects">Projects</a></li>
+    <li><a href="#achievements" id="na-achievements">Achievements</a></li>
+    <li><a href="#contact" id="na-contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-vline"></div>
+  <div class="hero-l">
+    <p class="hero-eyebrow"><span class="eline"></span>Grade 11 · Noida, India · CBSE · Class of 2028</p>
+    <h1 class="hero-name">Aaryav<br/><em>Jaiswal</em></h1>
+    <p class="hero-tagline">Aspiring entrepreneur and business strategist — building ventures, leading teams, and chasing opportunities across Asia-Pacific.</p>
+    <div class="ctas">
+      <a href="#achievements" class="btn-p">My Achievements →</a>
+      <a href="#contact" class="btn-o">Get In Touch</a>
+    </div>
+    <div class="scroll-hint"><span class="sline"></span>Scroll to explore</div>
+  </div>
+  <div class="hero-r">
+    <div class="photo-wrap">
+      <div class="photo-frame" style="padding:0;overflow:hidden;border:2px solid rgba(201,68,10,0.15);background:none">
+        <img src="data:image/jpeg;base64,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" style="width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:8px;" alt="Aaryav Jaiswal"/>
+      </div>
+      <div class="stat-chips">
+        <div class="chip"><strong>97.2%</strong> in Grade 10</div>
+        <div class="chip"><strong>100</strong> in SST & Spanish</div>
+        <div class="chip"><strong>State</strong> basketball camp</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="sec-head rv">
+    <p class="sec-label">About Me</p>
+    <h2 class="sec-title">A little about<br/><em>who I am</em></h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-text rl">
+      <p>I'm Aaryav, a Grade 11 student at Kothari International School, Noida, with a deep interest in business, entrepreneurship, and the way global markets move. From captaining my school basketball team to moderating MUN committees, I've always gravitated towards roles where I can lead, think on my feet, and bring people together around a shared goal.</p>
+      <p>Academically, I scored 97.2% in my Grade 10 CBSE boards — including a perfect 100 in Social Studies and Spanish, 99 in AI, and 95 in English. I also speak Spanish at a B1 level, which reflects my genuine interest in global communication and culture. This followed a 95% in Grade 9, and I intend to carry that momentum forward.</p>
+      <p>Outside the classroom, I've dipped my toes into the world of startups — from an early experiment with dropshipping to currently working on a nutraceutical supplement brand. I'm looking to pursue Business Administration or International Business abroad, targeting universities in Singapore, Australia, and Hong Kong where business meets a truly international perspective.</p>
+    </div>
+    <div class="rr">
+      <div class="detail-row"><div class="d-icon">🏫</div><div><div class="d-label">School</div><div class="d-value">Kothari International School, Noida</div></div></div>
+      <div class="detail-row"><div class="d-icon">📚</div><div><div class="d-label">Stream</div><div class="d-value">Science — Physics, Chemistry, Mathematics</div></div></div>
+      <div class="detail-row"><div class="d-icon">🎯</div><div><div class="d-label">Intended Major</div><div class="d-value">BBA / International Business</div></div></div>
+      <div class="detail-row"><div class="d-icon">🌏</div><div><div class="d-label">Target Countries</div><div class="d-value">Singapore, Australia, Hong Kong</div></div></div>
+      <div class="detail-row"><div class="d-icon">🌐</div><div><div class="d-label">Languages</div><div class="d-value">English, Hindi, Spanish (B1)</div></div></div>
+      <div class="detail-row"><div class="d-icon">📅</div><div><div class="d-label">Expected Graduation</div><div class="d-value">2028</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="sec-head rv">
+    <p class="sec-label">Skills & Interests</p>
+    <h2 class="sec-title">What I <em>bring</em></h2>
+    <p class="sec-sub">A mix of academic, leadership, and entrepreneurial skills built through competitions, projects, and real-world experiments.</p>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card rv d1">
+      <div class="sk-cat">Leadership</div>
+      <div class="sk-name">Team Leadership</div>
+      <div class="sk-desc">Captain of the KISN basketball team and applied for Vice Head Boy. Experienced in motivating teams under pressure and coordinating across groups.</div>
+      <div class="sk-bar"><div class="sk-fill" style="--lv:88%"></div></div>
+    </div>
+    <div class="skill-card rv d2">
+      <div class="sk-cat">Communication</div>
+      <div class="sk-name">Public Speaking & MUN</div>
+      <div class="sk-desc">7 MUN conferences attended, won Special Mention, and served as Rapporteur moderating a UNESCO committee. Comfortable speaking to large audiences.</div>
+      <div class="sk-bar"><div class="sk-fill" style="--lv:82%"></div></div>
+    </div>
+    <div class="skill-card rv d3">
+      <div class="sk-cat">Entrepreneurship</div>
+      <div class="sk-name">Business Strategy</div>
+      <div class="sk-desc">Hands-on experience with dropshipping and currently building a nutraceutical brand — from market research to product positioning and brand identity.</div>
+      <div class="sk-bar"><div class="sk-fill" style="--lv:75%"></div></div>
+    </div>
+    <div class="skill-card rv d4">
+      <div class="sk-cat">Technical</div>
+      <div class="sk-name">Coding & GitHub</div>
+      <div class="sk-desc">Active on GitHub, building and exploring coding projects. Comfortable with version control and collaborative development workflows.</div>
+      <div class="sk-bar"><div class="sk-fill" style="--lv:65%"></div></div>
+    </div>
+    <div class="skill-card rv d2">
+      <div class="sk-cat">Academics</div>
+      <div class="sk-name">Science Olympiads</div>
+      <div class="sk-desc">School Rank 1 in NSO 2025, selected for Round 2. Also achieved School Rank 1 in ISSO 2025 — demonstrating strong analytical and scientific reasoning.</div>
+      <div class="sk-bar"><div class="sk-fill" style="--lv:90%"></div></div>
+    </div>
+    <div class="skill-card rv d3">
+      <div class="sk-cat">Creative</div>
+      <div class="sk-name">Drama & Performance</div>
+      <div class="sk-desc">Won 1st place in the Inter-House Drama Skit competition at school, showing creative thinking, teamwork, and ability to perform under a spotlight.</div>
+      <div class="sk-bar"><div class="sk-fill" style="--lv:70%"></div></div>
+    </div>
+    <div class="skill-card rv d4">
+      <div class="sk-cat">Language</div>
+      <div class="sk-name">Spanish (B1)</div>
+      <div class="sk-desc">B1-level Spanish speaker — scored a perfect 100 in Spanish in Grade 10 boards. A genuine interest in the language, culture, and its relevance to global business.</div>
+      <div class="sk-bar"><div class="sk-fill" style="--lv:68%"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="sec-head rv">
+    <p class="sec-label">Projects & Ventures</p>
+    <h2 class="sec-title">Things I've <em>built</em></h2>
+    <p class="sec-sub">From entrepreneurial experiments to coding projects — work that goes beyond the classroom.</p>
+  </div>
+  <div class="proj-grid">
+    <div class="proj-card rv d1">
+      <div class="proj-thumb" style="height:190px;background:linear-gradient(135deg,#1A1612 0%,#2C1810 100%);display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--border);position:relative;overflow:hidden">
+        <svg width="260" height="120" viewBox="0 0 260 120" xmlns="http://www.w3.org/2000/svg">
+          <!-- background glow -->
+          <ellipse cx="130" cy="60" rx="90" ry="40" fill="rgba(201,68,10,0.08)"/>
+          <!-- neural arc top -->
+          <path d="M72 54 Q90 30 110 48" stroke="#C9440A" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.6"/>
+          <path d="M150 48 Q170 30 188 54" stroke="#C9440A" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.6"/>
+          <!-- lift arrow mark -->
+          <g transform="translate(118,22)">
+            <polygon points="12,0 24,18 18,18 18,30 6,30 6,18 0,18" fill="#C9440A" opacity="0.9"/>
+          </g>
+          <!-- node dots -->
+          <circle cx="72" cy="54" r="3.5" fill="#C9440A" opacity="0.8"/>
+          <circle cx="110" cy="48" r="3.5" fill="#E8693A" opacity="0.8"/>
+          <circle cx="150" cy="48" r="3.5" fill="#E8693A" opacity="0.8"/>
+          <circle cx="188" cy="54" r="3.5" fill="#C9440A" opacity="0.8"/>
+          <!-- connecting line through nodes -->
+          <path d="M72 54 Q110 72 130 60 Q150 48 188 54" stroke="rgba(201,68,10,0.3)" stroke-width="1" fill="none"/>
+          <!-- wordmark -->
+          <text x="130" y="85" text-anchor="middle" font-family="Georgia,serif" font-size="22" font-weight="400" letter-spacing="3" fill="#F5F2EC">NEURO</text>
+          <text x="130" y="107" text-anchor="middle" font-family="Georgia,serif" font-size="13" font-weight="400" letter-spacing="8" fill="#C9440A">LIFT</text>
+        </svg>
+        <span class="proj-thumb-label">Active</span>
+      </div>
+      <div class="proj-body">
+        <div class="tags"><span class="tag">Entrepreneurship</span><span class="tag">Health & Wellness</span></div>
+        <div class="proj-title">NeuroLift — Nutraceutical Brand</div>
+        <div class="proj-desc">Currently building NeuroLift, a nutraceutical supplement brand — handling market research, product formulation research, competitive positioning, and brand identity from scratch. A real-world exercise in taking an idea from 0 to 1.</div>
+        <div class="proj-foot"><span class="proj-meta">2025 — Present</span></div>
+      </div>
+    </div>
+    <div class="proj-card rv d2">
+      <div class="proj-thumb" style="height:auto;padding:1.25rem;display:block;background:var(--bg);font-style:normal">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem">
+          <div style="border:1px solid var(--border);border-radius:7px;padding:.75rem 1rem;background:var(--surface)">
+            <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem">
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--accent);flex-shrink:0"><rect x="2" y="2" width="12" height="12" rx="2"/><path d="M5 8h6M5 5h6M5 11h4"/></svg>
+              <span style="font-size:.75rem;font-weight:500;color:var(--accent)">Fitquest-AI</span>
+              <span style="font-size:.62rem;border:1px solid var(--border);border-radius:100px;padding:.1rem .45rem;color:var(--ink-muted)">Public</span>
+            </div>
+            <p style="font-size:.72rem;color:var(--ink-muted);line-height:1.5;margin-bottom:.5rem">Gamified AI web app to fulfil your fitness goals. Made using TS and React.</p>
+            <span style="font-size:.68rem;color:var(--ink-muted);display:flex;align-items:center;gap:.35rem"><span style="width:8px;height:8px;border-radius:50%;background:#3178c6;display:inline-block"></span>TypeScript</span>
+          </div>
+          <div style="border:1px solid var(--border);border-radius:7px;padding:.75rem 1rem;background:var(--surface)">
+            <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem">
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--accent);flex-shrink:0"><rect x="2" y="2" width="12" height="12" rx="2"/><path d="M5 8h6M5 5h6M5 11h4"/></svg>
+              <span style="font-size:.75rem;font-weight:500;color:var(--accent)">Nutrivision</span>
+              <span style="font-size:.62rem;border:1px solid var(--border);border-radius:100px;padding:.1rem .45rem;color:var(--ink-muted)">Public</span>
+            </div>
+            <p style="font-size:.72rem;color:var(--ink-muted);line-height:1.5;margin-bottom:.5rem">An AI Nutritionist made for fitness freaks.</p>
+            <span style="font-size:.68rem;color:var(--ink-muted);display:flex;align-items:center;gap:.35rem"><span style="width:8px;height:8px;border-radius:50%;background:#3178c6;display:inline-block"></span>TypeScript</span>
+          </div>
+          <div style="border:1px solid var(--border);border-radius:7px;padding:.75rem 1rem;background:var(--surface)">
+            <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem">
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--accent);flex-shrink:0"><rect x="2" y="2" width="12" height="12" rx="2"/><path d="M5 8h6M5 5h6M5 11h4"/></svg>
+              <span style="font-size:.75rem;font-weight:500;color:var(--accent)">ELI5</span>
+              <span style="font-size:.62rem;border:1px solid var(--border);border-radius:100px;padding:.1rem .45rem;color:var(--ink-muted)">Public</span>
+            </div>
+            <p style="font-size:.72rem;color:var(--ink-muted);line-height:1.5;margin-bottom:.5rem">Explains difficult stuff in terms of a 5 year old.</p>
+            <span style="font-size:.68rem;color:var(--ink-muted);display:flex;align-items:center;gap:.35rem"><span style="width:8px;height:8px;border-radius:50%;background:#3178c6;display:inline-block"></span>TypeScript</span>
+          </div>
+          <div style="border:1px solid var(--border);border-radius:7px;padding:.75rem 1rem;background:var(--surface)">
+            <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem">
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--accent);flex-shrink:0"><rect x="2" y="2" width="12" height="12" rx="2"/><path d="M5 8h6M5 5h6M5 11h4"/></svg>
+              <span style="font-size:.75rem;font-weight:500;color:var(--accent)">Jarvis</span>
+              <span style="font-size:.62rem;border:1px solid var(--border);border-radius:100px;padding:.1rem .45rem;color:var(--ink-muted)">Public</span>
+            </div>
+            <p style="font-size:.72rem;color:var(--ink-muted);line-height:1.5;margin-bottom:.5rem">Python Jarvis that runs on your device.</p>
+            <span style="font-size:.68rem;color:var(--ink-muted);display:flex;align-items:center;gap:.35rem"><span style="width:8px;height:8px;border-radius:50%;background:#3572A5;display:inline-block"></span>Python</span>
+          </div>
+        </div>
+      </div>
+      <div class="proj-body">
+        <div class="tags"><span class="tag">TypeScript</span><span class="tag">Python</span><span class="tag">React</span><span class="tag">AI</span></div>
+        <div class="proj-title">GitHub Projects</div>
+        <div class="proj-desc">6 public repos including Fitquest-AI (gamified fitness web app), Nutrivision (AI nutritionist), ELI5 (AI explainer tool), Jarvis (Python voice assistant), ScreenTutor, and Time-Translator. Primarily built with TypeScript and React, with Python for AI tooling.</div>
+        <div class="proj-foot"><a href="https://github.com/aaryav1234" class="proj-link" target="_blank">View on GitHub</a><span class="proj-meta">Ongoing</span></div>
+      </div>
+    </div>
+    <div class="proj-card rv d3">
+      <div class="proj-thumb" style="height:190px;background:var(--bg);display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--border);padding:1.25rem;font-style:normal;overflow:hidden">
+        <div style="width:100%;display:flex;flex-direction:column;gap:.55rem">
+          <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);font-weight:500;margin-bottom:.1rem">What I learned</div>
+          <div style="display:flex;align-items:center;gap:.6rem">
+            <span style="width:20px;height:20px;border-radius:4px;background:var(--accent-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.72rem">📦</span>
+            <span style="font-size:.76rem;color:var(--ink);font-weight:500">Product research &amp; supplier sourcing</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:.6rem">
+            <span style="width:20px;height:20px;border-radius:4px;background:var(--accent-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.72rem">📣</span>
+            <span style="font-size:.76rem;color:var(--ink);font-weight:500">Meta Ads &amp; digital marketing</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:.6rem">
+            <span style="width:20px;height:20px;border-radius:4px;background:var(--accent-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.72rem">🛒</span>
+            <span style="font-size:.76rem;color:var(--ink);font-weight:500">Shopify store setup &amp; operations</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:.6rem">
+            <span style="width:20px;height:20px;border-radius:4px;background:var(--accent-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.72rem">💡</span>
+            <span style="font-size:.76rem;color:var(--ink);font-weight:500">Execution beats the idea every time</span>
+          </div>
+          <div style="margin-top:.3rem;padding-top:.55rem;border-top:1px solid var(--border);display:flex;gap:.45rem;flex-wrap:wrap">
+            <span style="font-size:.65rem;background:var(--accent-light);color:var(--accent);padding:.2rem .55rem;border-radius:3px;font-weight:500">Shopify</span>
+            <span style="font-size:.65rem;background:var(--accent-light);color:var(--accent);padding:.2rem .55rem;border-radius:3px;font-weight:500">Meta Ads</span>
+            <span style="font-size:.65rem;background:var(--accent-light);color:var(--accent);padding:.2rem .55rem;border-radius:3px;font-weight:500">E-Commerce</span>
+          </div>
+        </div>
+      </div>
+      <div class="proj-body">
+        <div class="tags"><span class="tag">E-Commerce</span><span class="tag">Entrepreneurship</span></div>
+        <div class="proj-title">Dropshipping Venture</div>
+        <div class="proj-desc">Built and ran a dropshipping store independently — handling product research, supplier sourcing, Shopify setup, and paid ad campaigns. The store is no longer active, but the experience taught me the realities of running a lean business: what works, what doesn't, and why execution is harder than the idea.</div>
+        <div class="proj-foot"><span class="proj-meta">2024 — Closed</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="sec-head rv">
+    <p class="sec-label">Achievements</p>
+    <h2 class="sec-title">Milestones &amp; <em>recognition</em></h2>
+    <p class="sec-sub">Olympiads, leadership roles, sports, and other recognitions — a record of showing up and standing out.</p>
+  </div>
+
+  <div class="ach-filters rv">
+    <button class="af active" data-f="all">All</button>
+    <button class="af" data-f="national">National</button>
+    <button class="af" data-f="state">State</button>
+    <button class="af" data-f="school">School</button>
+    <button class="af" data-f="academics">Academics</button>
+    <button class="af" data-f="sports">Sports</button>
+    <button class="af" data-f="mun">MUN</button>
+    <button class="af" data-f="arts">Arts</button>
+  </div>
+
+  <!-- Featured -->
+  <div class="ach-feat rv" data-lv="national" data-cat="academics">
+    <div class="af-left">
+      <div class="af-badge">★ Top Achievement</div>
+      <div class="af-title">97.2% in Grade 10 Board Exams — with two perfect 100s</div>
+      <div class="af-org">CBSE Board Examinations — 2025–2026 Batch, Kothari International School</div>
+    </div>
+    <div class="af-right">
+      <div class="af-meta">
+        <div class="af-meta-item"><div class="af-ml">Year</div><div class="af-mv">2025</div></div>
+        <div class="af-meta-item"><div class="af-ml">Overall</div><div class="af-mv">97.2%</div></div>
+        <div class="af-meta-item"><div class="af-ml">Perfect 100s</div><div class="af-mv">SST &amp; Spanish</div></div>
+      </div>
+      <div class="af-desc">Scored 97.2% overall with a perfect 100 in both Social Studies and Spanish, 99 in AI, and 95 in English — across the CBSE national board exams. This followed a 95% in Grade 9, showing a consistent upward trajectory in academic performance.</div>
+    </div>
+  </div>
+
+  <!-- Timeline -->
+  <div class="timeline" id="timeline">
+
+    <div class="ach-group" data-year="2026">
+      <div class="ach-yr rv"><div class="ach-yr-label">2026</div><div class="ach-yr-count">1 achievement</div></div>
+      <div class="ach-cards">
+        <div class="ach-card rv d1" data-lv="school" data-cat="mun">
+          <div class="ach-top"><div class="ach-ttl">Rapporteur, UNESCO Committee — KMUN 2026</div><span class="bdg school">School</span></div>
+          <div class="ach-org">Kothari Model United Nations — Moderating Role</div>
+          <div class="ach-desc">Served as Rapporteur, moderating the UNESCO committee at KMUN 2026 — managing proceedings, documentation, and delegate engagement throughout the conference.</div>
+          <div class="ach-foot"><span class="ach-cat">MUN</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ach-group" data-year="2025">
+      <div class="ach-yr rv"><div class="ach-yr-label">2025</div><div class="ach-yr-count">5 achievements</div></div>
+      <div class="ach-cards">
+        <div class="ach-card rv d1" data-lv="national" data-cat="academics">
+          <div class="ach-top"><div class="ach-ttl">School Rank 1 — National Science Olympiad (NSO)</div><span class="bdg national">National</span></div>
+          <div class="ach-org">Science Olympiad Foundation — Selected for Round 2</div>
+          <div class="ach-desc">Ranked first in school in NSO 2025 and qualified for Round 2 of the national competition, demonstrating top-tier scientific aptitude.</div>
+          <div class="ach-foot"><span class="ach-cat">Academics</span></div>
+        </div>
+        <div class="ach-card rv d2" data-lv="national" data-cat="academics">
+          <div class="ach-top"><div class="ach-ttl">School Rank 1 — International Social Studies Olympiad (ISSO)</div><span class="bdg national">National</span></div>
+          <div class="ach-org">Silver Zone Foundation — ISSO 2025</div>
+          <div class="ach-desc">Achieved School Rank 1 in ISSO 2025, reflecting strong command over social studies concepts and analytical reasoning.</div>
+          <div class="ach-foot"><span class="ach-cat">Academics</span></div>
+        </div>
+        <div class="ach-card rv d3" data-lv="school" data-cat="sports">
+          <div class="ach-top"><div class="ach-ttl">Sports Captain — KISN Basketball Team 2024–25</div><span class="bdg school">School</span></div>
+          <div class="ach-org">Kothari International School, Noida</div>
+          <div class="ach-desc">Led the school basketball team as captain, responsible for team strategy, morale, and performance across inter-school tournaments.</div>
+          <div class="ach-foot"><span class="ach-cat">Sports</span></div>
+        </div>
+        <div class="ach-card rv d4" data-lv="national" data-cat="academics">
+          <div class="ach-top"><div class="ach-ttl">97.2% — Grade 10 CBSE Boards · 100 in SST &amp; Spanish</div><span class="bdg national">National</span></div>
+          <div class="ach-org">CBSE Board Exams — 100 in SST &amp; Spanish · 99 in AI · 95 in English</div>
+          <div class="ach-desc">Scored 97.2% overall with two perfect 100s — a reflection of consistent academic excellence and genuine multilingual ability in Spanish.</div>
+          <div class="ach-foot"><span class="ach-cat">Academics</span></div>
+        </div>
+        <div class="ach-card rv d5" data-lv="school" data-cat="mun">
+          <div class="ach-top"><div class="ach-ttl">High Commendation — MUN Conference</div><span class="bdg school">School</span></div>
+          <div class="ach-org">Model United Nations — 2nd Highest Delegate Award</div>
+          <div class="ach-desc">Received High Commendation (2nd place award) at a MUN conference, recognising outstanding research, diplomatic argumentation, and resolution-writing.</div>
+          <div class="ach-foot"><span class="ach-cat">MUN</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ach-group" data-year="2024">
+      <div class="ach-yr rv"><div class="ach-yr-label">2024</div><div class="ach-yr-count">6 achievements</div></div>
+      <div class="ach-cards">
+        <div class="ach-card rv d1" data-lv="national" data-cat="academics">
+          <div class="ach-top"><div class="ach-ttl">95% — Grade 9 Academic Performance</div><span class="bdg national">National</span></div>
+          <div class="ach-org">Kothari International School, Noida — CBSE Curriculum</div>
+          <div class="ach-desc">Scored 95% in Grade 9 — the foundation of a consistent upward trajectory that led to 97.2% in Grade 10 boards.</div>
+          <div class="ach-foot"><span class="ach-cat">Academics</span></div>
+        </div>
+      </div>
+      <div class="ach-cards">
+        <div class="ach-card rv d1" data-lv="school" data-cat="mun">
+          <div class="ach-top"><div class="ach-ttl">Special Mention — MUN Conference</div><span class="bdg school">School</span></div>
+          <div class="ach-org">Model United Nations Conference — Delegate Award</div>
+          <div class="ach-desc">Received a Special Mention at a MUN conference, recognising strong position papers, floor speeches, and resolution-drafting as a delegate.</div>
+          <div class="ach-foot"><span class="ach-cat">MUN</span></div>
+        </div>
+        
+        <div class="ach-card rv d2" data-lv="state" data-cat="sports">
+          <div class="ach-top"><div class="ach-ttl">Selected — U-17 State Basketball Camp</div><span class="bdg state">State</span></div>
+          <div class="ach-org">Uttar Pradesh Basketball Association — U-17 Level</div>
+          <div class="ach-desc">Selected for the U-17 State Basketball Camp — one of very few students chosen at this level — after winning multiple tournaments with school and academy.</div>
+          <div class="ach-foot"><span class="ach-cat">Sports</span></div>
+        </div>
+        <div class="ach-card rv d3" data-lv="school" data-cat="arts">
+          <div class="ach-top"><div class="ach-ttl">1st Place — Inter-House Drama Skit Competition</div><span class="bdg school">School</span></div>
+          <div class="ach-org">Kothari International School — Annual Inter-House Events</div>
+          <div class="ach-desc">Won first place in the school inter-house drama competition, demonstrating creativity, stage presence, and collaborative performance.</div>
+          <div class="ach-foot"><span class="ach-cat">Arts</span></div>
+        </div>
+        <div class="ach-card rv d4" data-lv="school" data-cat="sports">
+          <div class="ach-top"><div class="ach-ttl">2nd Place — Inter-House Basketball (Grade 10)</div><span class="bdg school">School</span></div>
+          <div class="ach-org">Kothari International School — Inter-House Sports Events</div>
+          <div class="ach-desc">Finished 2nd in the Grade 10 inter-house basketball competition, contributing as a key player in a highly competitive school tournament.</div>
+          <div class="ach-foot"><span class="ach-cat">Sports</span></div>
+        </div>
+        <div class="ach-card rv d5" data-lv="school" data-cat="sports">
+          <div class="ach-top"><div class="ach-ttl">3rd Place — Inter-House Chess (Grade 10)</div><span class="bdg school">School</span></div>
+          <div class="ach-org">Kothari International School — Inter-House Sports Events</div>
+          <div class="ach-desc">Placed 3rd in the inter-house chess competition in Grade 10, demonstrating strategic thinking and composure in competitive play.</div>
+          <div class="ach-foot"><span class="ach-cat">Sports</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ach-group" data-year="2023">
+      <div class="ach-yr rv"><div class="ach-yr-label">2023</div><div class="ach-yr-count">3 achievements</div></div>
+      <div class="ach-cards">
+        <div class="ach-card rv d1" data-lv="school" data-cat="sports">
+          <div class="ach-top"><div class="ach-ttl">Basketball Team Captain — KISN 2023–24</div><span class="bdg school">School</span></div>
+          <div class="ach-org">Kothari International School — Won Numerous Tournaments</div>
+          <div class="ach-desc">Captained the KISN basketball team through the 2023–2024 season, winning multiple tournaments at school and academy level.</div>
+          <div class="ach-foot"><span class="ach-cat">Sports</span></div>
+        </div>
+        <div class="ach-card rv d2" data-lv="school" data-cat="sports">
+          <div class="ach-top"><div class="ach-ttl">2nd Place — Inter-House Chess Competition</div><span class="bdg school">School</span></div>
+          <div class="ach-org">Kothari International School — Inter-House Sports Events</div>
+          <div class="ach-desc">Placed 2nd in the inter-house chess competition, showing strong analytical thinking and calm decision-making under pressure.</div>
+          <div class="ach-foot"><span class="ach-cat">Sports</span></div>
+        </div>
+        <div class="ach-card rv d3" data-lv="school" data-cat="sports">
+          <div class="ach-top"><div class="ach-ttl">3rd Place — Inter-House Basketball Competition</div><span class="bdg school">School</span></div>
+          <div class="ach-org">Kothari International School — Inter-House Sports Events</div>
+          <div class="ach-desc">Placed 3rd in the inter-house basketball competition, contributing solid team play in competitive school-level sport.</div>
+          <div class="ach-foot"><span class="ach-cat">Sports</span></div>
+        </div>
+      </div>
+    </div>
+
+
+  </div><!-- /timeline -->
+
+  <!-- Extracurriculars -->
+  <div class="extras-head rv">
+    <p class="sec-label" style="margin-bottom:.6rem">Extracurriculars</p>
+    <h3>Beyond the <em>classroom</em></h3>
+    <p>Sports, diplomacy, entrepreneurship, performance — the full picture of who Aaryav is.</p>
+  </div>
+  <div class="extras-grid">
+    <div class="extra rv d1"><div class="extra-icon">🏀</div><div class="extra-name">Basketball</div><div class="extra-role">Team Captain · State Level</div></div>
+    <div class="extra rv d2"><div class="extra-icon">🌐</div><div class="extra-name">Model United Nations</div><div class="extra-role">Delegate + Rapporteur · 7 Conferences</div></div>
+    <div class="extra rv d3"><div class="extra-icon">🚀</div><div class="extra-name">Entrepreneurship</div><div class="extra-role">Supplement Brand · E-Commerce</div></div>
+    <div class="extra rv d4"><div class="extra-icon">🎭</div><div class="extra-name">Drama</div><div class="extra-role">Inter-House 1st Place · 2024</div></div>
+    <div class="extra rv d1"><div class="extra-icon">♟️</div><div class="extra-name">Chess</div><div class="extra-role">2nd Place Inter-House · 2023</div></div>
+    <div class="extra rv d2"><div class="extra-icon">🇪🇸</div><div class="extra-name">Spanish</div><div class="extra-role">B1 Level · 100 in Boards</div></div>
+    <div class="extra rv d3"><div class="extra-icon">💻</div><div class="extra-name">Coding</div><div class="extra-role">GitHub · Personal Projects</div></div>
+    <div class="extra rv d4"><div class="extra-icon">🏫</div><div class="extra-name">Student Leadership</div><div class="extra-role">Applied — Vice Head Boy</div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="sec-head rv">
+    <p class="sec-label">Contact</p>
+    <h2 class="sec-title">Let's <em>connect</em></h2>
+  </div>
+  <div class="contact-wrap">
+    <div class="rl">
+      <div class="contact-text">
+        <p>Whether you're a university admissions officer, a program coordinator, a potential collaborator, or someone curious about my work — I'd love to hear from you. Always open to new opportunities.</p>
+      </div>
+    </div>
+    <div class="clinks rr">
+      <a href="mailto:jaiswal.aaryav@gmail.com" class="clink">
+        <div class="clink-icon">✉</div>
+        <div><div class="clink-lbl">Email</div><div class="clink-val">jaiswal.aaryav@gmail.com</div></div>
+      </a>
+      <a href="https://github.com/aaryav1234" class="clink" target="_blank">
+        <div class="clink-icon">⌥</div>
+        <div><div class="clink-lbl">GitHub</div><div class="clink-val">github.com/aaryav1234</div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Aaryav Jaiswal</span>
+  <div class="footer-r"><span class="fdot"></span><span>Grade 11 · Kothari International School, Noida · Class of 2028</span></div>
+</footer>
+
+<script>
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function l(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(l)})();
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('sc',scrollY>40),{passive:true});
+const secs=['about','skills','projects','achievements','contact'];
+secs.forEach(s=>{
+  const el=document.getElementById(s);
+  if(el) new IntersectionObserver(es=>{
+    es.forEach(e=>{if(e.isIntersecting)secs.forEach(id=>{
+      const a=document.getElementById('na-'+id);
+      if(a)a.classList.toggle('act',id===s);
+    })});
+  },{threshold:.35}).observe(el);
+});
+const ro=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');ro.unobserve(e.target)}})},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.rv,.rl,.rr').forEach(el=>ro.observe(el));
+const bo=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('bar-on');bo.unobserve(e.target)}})},{threshold:.5});
+document.querySelectorAll('.skill-card').forEach(el=>bo.observe(el));
+document.querySelectorAll('.af').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.af').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const f=btn.dataset.f;
+    document.querySelectorAll('.ach-card,.ach-feat').forEach(c=>{
+      const lv=c.dataset.lv||'',cat=c.dataset.cat||'';
+      const show=f==='all'||lv===f||cat===f;
+      c.style.transition='opacity .3s,transform .3s';
+      c.style.opacity=show?'1':'0.18';
+      c.style.transform=show?'':'scale(0.97)';
+      c.style.pointerEvents=show?'':'none';
+    });
+  });
+});
+</script>
+</body>
+</html>
